@@ -1,0 +1,50 @@
+<html lang="en">
+	<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Vuejs Todo</title>
+		<link rel="stylesheet" href="styles.css">
+		<script src="https://unpkg.com/vue"></script> 
+	</head>
+	<body>
+		<section class="todoapp">
+			<header class="header">
+				<h1>todos</h1>
+				<input class="new-todo"
+				  v-model="newTodo"
+					v-on:keyup.enter="addTodo"
+				placeholder="What needs to be done?" autofocus>
+			</header>
+			<section class="main">
+				<ul class="todo-list">
+					<li v-for="todo in filteredTodos"
+						:class="{ completed: todo.completed, editing: todo == editedTodo}">
+						<div class="view">
+								<input class="toggle" type="checkbox" v-model="todo.completed" />
+								<label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+								<button class="destroy" @click="removeTodo(todo)"></button>
+						</div>
+						<input class="edit" type="text"
+							v-model="todo.title"
+							@blur="doneEdit(todo)"
+							@keyup.enter="doneEdit(todo)" />
+					</li>
+				</ul>
+				<input class="toggle-all" id="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul class="todo-list"></ul>
+			</section>
+			<footer class="footer">
+				<ul class="filters">
+					<li><a href="#" @click.prevent="visibility='all'"  :class="{ selected: visibility == 'all' }">All</a></li>
+					<li><a href="#" @click.prevent="visibility='active'":class="{ selected: visibility == 'active' }">Active</a></li>
+					<li><a href="#" @click.prevent="visibility='completed'":class="{ selected: visibility == 'completed' }">Completed</a></li>
+				</ul>
+			</footer>
+		</section>
+		
+
+		<script src="app.js"></script>
+	</body>
+</html>
